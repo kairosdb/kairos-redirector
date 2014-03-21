@@ -4,12 +4,13 @@ import os.path
 import ConfigParser
 from kairos import redirector
 from kairos.uploader import Uploader
+from kairos import reader
 
 print "Sarting up"
 
 if (len(sys.argv) != 2):
 	print 'You must provide a path to the redirector.ini!'
-	sys.exit(1);
+	sys.exit(1)
 	
 configPath = sys.argv[1]
 
@@ -35,9 +36,7 @@ os.mkfifo(fifoPath)
 upload = Uploader(kairosUrl)
 
 
-
-
-#remove named pipe
+reader.reader(upload, fifoPath)
 os.remove(fifoPath)
 
 print "Exiting"
