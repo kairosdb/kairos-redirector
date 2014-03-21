@@ -1,4 +1,5 @@
 import sys
+import os
 import ConfigParser
 from kairos import redirector
 
@@ -13,19 +14,24 @@ configPath = sys.argv[1]
 config = ConfigParser.ConfigParser()
 config.read(configPath)
 
-print config.get('main', 'KairosURL')
-print config.get('main', 'fifo_path')
+kairosUrl = config.get('main', 'KairosURL')
+fifoPath = config.get('main', 'fifo_path')
 
-#todo: read from config file to get kairos location
-# read location of named pipe
+print kairosUrl
+print fifoPath
 
 #create named pipe
+#todo: should check if the file is there, delete it and then create it
+os.mkfifo(fifoPath)
 
 #register signal handler
 
 
 #callinto pipe reader
 
+
+
 #remove named pipe
+os.remove(fifoPath)
 
 print "Exiting"

@@ -3,3 +3,4 @@ build/*
 dependency.txt
 .tablesawcache
 .idea
+redirector.ini
