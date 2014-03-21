@@ -37,8 +37,6 @@ def reader(uploader, pipe):
             out.write('}')
 
             out.write('}')
-            for item in metric:
-                print item
 
             out.flush()
             metricCount += 1
@@ -47,8 +45,9 @@ def reader(uploader, pipe):
             metricCount = 0
             out.write(']')
             out.close()
-            uploader.upload(metricFile)
-            out = open(metricFile, 'w')
-            out.write('[')
+            if uploader.upload(metricFile):
+                out = open(metricFile, 'w')
+                out.write('[')
+            # todo retry if failed?
 
 #rp.close()
