@@ -27,5 +27,14 @@ class Uploader():
 
         res = urllib2.urlopen(req, uploadFile)
 
+        print 'Response code: ' + str(res.code)
+
         for l in res:
             print l
+
+        if res.code == 204:
+            exitCode = True
+        else:
+            exitCode = False
+
+        return exitCode
