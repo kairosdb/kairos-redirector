@@ -10,24 +10,22 @@ class File2(file):
     def __len__(self):
         return int(os.fstat(self.fileno())[6])
 
-kdbUrl = 'http://10.92.0.14:8080/api/v1/datapoints'
-inputFile = 'input.json'
+class uploader():
+    def __init__(self, url):
+        self.url = url
 
-jsonData = """[{
-        'name' : 'test_point1',
-        'timestamp' : 1395422539,
-        'value' : 123,
-        'tags' : { 'host' : 'pk' }
-    }]"""
+    def upload(self, filePath, zipIt = False):
+        kdbUrl = self.url + '/api/v1/datapoints'
 
-fileData = File2(inputFile, 'r')
+        print 'Url: ' + kdbUrl
+        print 'File: ' + filePath
 
-print "Url: " + kdbUrl
+        uploadFile = File2(filePath, 'r')
 
-req = urllib2.Request(kdbUrl)
-req.add_header('Content-Type', 'application/json')
+        req = urllib2.Request(kdbUrl)
+        req.add_header('Content-Type', 'application/json')
 
-res = urllib2.urlopen(req, fileData)
+        res = urllib2.urlopen(req, uploadFile)
 
-for l in res:
-    print l
+        for l in res:
+            print l
