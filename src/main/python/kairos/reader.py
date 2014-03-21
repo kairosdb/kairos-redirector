@@ -3,7 +3,7 @@ import time
 
 
 def reader(uploader, pipe):
-    metricFile = "./metricsToSend.json"
+    metricFile = "./pendingMetrics.json"
     out = open(metricFile, 'w')
     out.write('[')
 
@@ -48,5 +48,7 @@ def reader(uploader, pipe):
             out.write(']')
             out.close()
             uploader.upload(metricFile)
+            out = open(metricFile, 'w')
+            out.write('[')
 
-    #rp.close()
+#rp.close()
