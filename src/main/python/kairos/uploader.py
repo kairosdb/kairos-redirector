@@ -10,7 +10,7 @@ class File2(file):
     def __len__(self):
         return int(os.fstat(self.fileno())[6])
 
-class uploader():
+class Uploader():
     def __init__(self, url):
         self.url = url
 

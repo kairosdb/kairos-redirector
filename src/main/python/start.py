@@ -1,7 +1,9 @@
 import sys
 import os
+import os.path
 import ConfigParser
 from kairos import redirector
+from kairos.uploader import Uploader
 
 print "Sarting up"
 
@@ -21,13 +23,17 @@ print kairosUrl
 print fifoPath
 
 #create named pipe
-#todo: should check if the file is there, delete it and then create it
+if (os.path.exists(fifoPath)):
+	os.remove(fifoPath)
+
 os.mkfifo(fifoPath)
 
 #register signal handler
 
 
 #callinto pipe reader
+upload = Uploader(kairosUrl)
+
 
 
 
