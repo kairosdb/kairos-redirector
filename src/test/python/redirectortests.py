@@ -3,16 +3,16 @@ from kairos import redirector
 
 class RedirectorTestCase(unittest.TestCase):
 	def setUp(self):
-		print "setUp";
+		print "setUp"
 		
 	def tearDown(self):
-		print "tearDown";
+		print "tearDown"
 		
 	def testOne(self):
-		print "Test one";
+		print "Test one"
 		
 	def testTwo(self):
-		print "Test two";
+		print "Test two"
 
 
 if __name__ == "__main__":

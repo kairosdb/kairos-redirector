@@ -79,7 +79,14 @@ new rules.SimpleRule('run').setDescription('Start the python application')
 function doRun(rule)
 {
 	saw.setProperty('PYTHONPATH', 'src/main/python');
-	saw.exec('python src/main/python/start.py');
+	var cmd = 'python src/main/python/start.py';
+	localIni = new java.io.File("redirector.ini");
+	if (localIni.exists())
+		cmd += ' redirector.ini';
+	else
+		cmd += ' src/main/resource/redirector.ini';
+	
+	saw.exec(cmd);
 }
 
 new rules.SimpleRule('test').setDescription("Run PyUnit tests")
