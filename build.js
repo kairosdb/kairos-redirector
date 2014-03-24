@@ -54,22 +54,21 @@ function doRPM(rule)
 	//Adding dependencies
 	//rpmBuilder.addDependencyMore('httpd', '2');
 	
-	addFileSetToRPM(rpmBuilder, installBase+'/app', new tablesaw.RegExFileSet('app', '.*').recurse());
-	addFileSetToRPM(rpmBuilder, installBase+'/lib', new tablesaw.RegExFileSet('lib', '.*').recurse());
-	addFileSetToRPM(rpmBuilder, installBase+'/plugins', new tablesaw.RegExFileSet('plugins', '.*').recurse());
+	addFileSetToRPM(rpmBuilder, installBase+'/lib', new tablesaw.RegExFileSet('src/main/python', '.*').recurse());
 	
-	rpmBuilder.addFile(installBase+'/index.php', new java.io.File('index.php'));
-	rpmBuilder.addFile(installBase+'/.htaccess', new java.io.File('.htaccess'));
-	rpmBuilder.addFile('/etc/httpd/conf.d/jslate.conf', new java.io.File('etc/jslate.conf'));
+	rpmBuilder.addFile(installBase+'/bin/kairos-redirector.sh', new java.io.File('src/main/script/kairos-redirector.sh'), 0755);
+	rpmBuilder.addFile(installBase+'/conf/redirector.ini', new java.io.File('src/main/resource/redirector.ini'));
+	
+	rpmBuilder.addFile("/etc/init.d/kairos-redirector", new java.io.File("src/main/script/redirector-service.sh"), 0755);
 
 	//Post install script to set owner to apache
-	rpmBuilder.setPostInstallScript(new java.io.File("etc/post_install.sh"));
-	//rpmBuilder.setPreUninstallScript(new File("src/scripts/install/pre_uninstall.sh"));
+	rpmBuilder.setPostInstallScript(new java.io.File("src/main/script/post_install.sh"));
+	rpmBuilder.setPreUninstallScript(new java.io.File("src/main/script/pre_uninstall.sh"));
 	
-	print("Building RPM "+rule.getTarget())
-	var outputFile = new java.io.FileOutputStream(rule.getTarget())
-	rpmBuilder.build(outputFile.getChannel())
-	outputFile.close()
+	print("Building RPM "+rule.getTarget());
+	var outputFile = new java.io.FileOutputStream(rule.getTarget());
+	rpmBuilder.build(outputFile.getChannel());
+	outputFile.close();
 }
 
 new rules.SimpleRule('run').setDescription('Start the python application')
