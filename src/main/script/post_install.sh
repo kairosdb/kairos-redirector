@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir /var/log/kairos
+
 if ! type chkconfig &> /dev/null; then
 	update-rc.d kairos-redirector defaults
 else

@@ -33,12 +33,17 @@ class Uploader:
             uploadFilePath = filePath
             contentType = 'application/json'
 
-        uploadFile = File2(uploadFilePath, 'r')
+        #uploadFile = File2(uploadFilePath, 'r')
 
         req = urllib2.Request(kdbUrl)
         req.add_header('Content-Type', contentType)
+        
+        with open(uploadFilePath, 'r') as f:
+            contents = f.read()
+            
+        print contents
 
-        res = urllib2.urlopen(req, uploadFile)
+        res = urllib2.urlopen(req, contents)
 
         print 'Response code: ' + str(res.code)
 

@@ -28,6 +28,7 @@ if (os.path.exists(fifoPath)):
 	os.remove(fifoPath)
 
 os.mkfifo(fifoPath)
+os.chmod(fifoPath, 0666)
 
 #register signal handler
 

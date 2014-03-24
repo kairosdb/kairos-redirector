@@ -8,3 +8,5 @@ else
 	chkconfig kairos-redirector off
 	chkconfig --del kairos-redirector
 fi
+
+rm -rf /var/log/kairos
