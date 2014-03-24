@@ -37,22 +37,28 @@ class Uploader:
 
         req = urllib2.Request(kdbUrl)
         req.add_header('Content-Type', contentType)
+
+        f = open(uploadFilePath, 'r')
+        contents = f.read()
+        f.close()
         
-        with open(uploadFilePath, 'r') as f:
-            contents = f.read()
-            
         print contents
+        
+        exitCode = True
+        try:
+            res = urllib2.urlopen(req, contents)
+            
 
-        res = urllib2.urlopen(req, contents)
+            print 'Response code: ' + str(res.code)
 
-        print 'Response code: ' + str(res.code)
-
-        for l in res:
-            print l
-
-        if res.code == 204:
-            exitCode = True
-        else:
-            exitCode = False
+            for l in res:
+                print l
+    
+            if res.code == 204:
+                exitCode = True
+            else:
+                exitCode = False
+        except e:
+            print e
 
         return exitCode
