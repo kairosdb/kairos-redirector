@@ -44,7 +44,7 @@ class Uploader:
         
         print contents
         
-        exitCode = True
+        exitCode = False
         try:
             res = urllib2.urlopen(req, contents)
             
@@ -58,7 +58,7 @@ class Uploader:
                 exitCode = True
             else:
                 exitCode = False
-        except e:
-            print e
+        except:
+            print sys.exc_info()[0]
 
         return exitCode
