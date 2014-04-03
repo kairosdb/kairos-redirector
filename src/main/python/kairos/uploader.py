@@ -58,7 +58,19 @@ class Uploader:
                 exitCode = True
             else:
                 exitCode = False
-        except:
-            print sys.exc_info()[0]
+
+        except urllib2.HTTPError, e:
+            print("Error: %s" % e)
+            print("Code: %s" % e.code)
+            if e.code == 204:
+                exitCode = True
+
+        except urllib2.URLError, e:
+            print("Error: %s" % e)
+            print(e.args)
+
+        except: # catch *all* exceptions
+            e = sys.exc_info()[0]
+            print ( "Error: %s" % e )
 
         return exitCode
